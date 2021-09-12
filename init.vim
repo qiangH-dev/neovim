@@ -97,6 +97,7 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         Plug 'valloric/youcompleteme'
         Plug 'ervandew/supertab'
+        Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
 
 "==========================
@@ -143,4 +144,23 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd vimenter * if !argc()|NERDTree|endif
 " NOTE>正常下 Nerdtree 是不会自动刷新的，按 r 刷新
 
+"==========================================
+"   Plugin nvim-cpp-enhanced-highlight
+"==========================================
+" 启用类范围高亮显示
+let g:cpp_class_scope_highlight = 1
+" 启用成员变量高亮显示
+let g:cpp_member_variable_highlight = 1
+" 启用类名声明高亮显示
+let g:cpp_class_decl_highlight = 1
+" 启用POSIX函数高亮显示
+let g:cpp_posix_standard = 1
+" 启用模板函数高亮显示NOTE:不一定管用
+let g:cpp_experimental_simple_template_highlight = 1
+" 备选启用模板函数高亮显示
+"let g:cpp_experimental_template_highlight = 1
+" enable concepts
+let g:cpp_concepts_highlight = 1
+" 禁用用户自定义函数高亮显示
+let g:cpp_no_function_highlight = 0
 
