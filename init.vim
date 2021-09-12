@@ -78,7 +78,8 @@ nnoremap <C-a> ggVG
 vnoremap <C-c> y
 " 在插入模式下粘贴 ctrl+v
 inoremap <C-v> <ESC>p
-
+" 在插入模式下 向上插入一行
+inoremap <C-o> <ESC>O
 " 插入模式下光标移动
 inoremap <C-h> <Right>
 inoremap <C-l> <Left>
@@ -104,6 +105,15 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'ervandew/supertab'
         Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
+
+let g:coc_global_extensions=[
+    \ 'coc-pairs',
+    \ 'coc-lists',
+    \ 'coc-highlight',
+    \ 'coc-snippets',
+    \ 'coc-json']
+
+
 
 "==========================
 "   Plugin NeoSolarized 
