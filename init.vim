@@ -76,6 +76,9 @@ nnoremap <C-F> :/
 nnoremap <C-a> ggVG
 " 选中状态下复制ctrl+c
 vnoremap <C-c> y
+" 在插入模式下粘贴 ctrl+v
+inoremap <C-v> <ESC>p
+
 " 插入模式下光标移动
 inoremap <C-h> <Right>
 inoremap <C-l> <Left>
@@ -83,6 +86,8 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 " 标准模式下撤销操作
 nnoremap <C-z> u                    " 恢复撤销操作 ctrl-r
+
+nnoremap qq :q<CR>
 
 "=================================
 "   vim-plug 插件管理器 
