@@ -81,8 +81,8 @@ inoremap <C-v> <ESC>p
 " 在插入模式下 向上插入一行
 inoremap <C-o> <ESC>O
 " 插入模式下光标移动
-inoremap <C-h> <Right>
-inoremap <C-l> <Left>
+inoremap <C-l> <Right>
+inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 " 标准模式下撤销操作
@@ -104,6 +104,9 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'valloric/youcompleteme'
         Plug 'ervandew/supertab'
         Plug 'octol/vim-cpp-enhanced-highlight'
+        " Tags Plugin
+        Plug 'universal-ctags/ctags'
+        Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 let g:coc_global_extensions=[
@@ -178,4 +181,106 @@ let g:cpp_experimental_simple_template_highlight = 1
 let g:cpp_concepts_highlight = 1
 " 禁用用户自定义函数高亮显示
 let g:cpp_no_function_highlight = 0
+
+"==========================================
+"   Plugin youcompleteme  
+"==========================================
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" + git command:
+" +     git submodule update --init --recursive
+" + Depends : 
+" +     sudo apt install build-essential cmake vim-nox python3-dev
+" + install command:
+" +     cd ~/.vim/plugged/YouCompleteMe
+" +     python3 install.py --clangd-completer
+" ---------------------------------------------------------------- 
+let g:ycm_add_preview_to_completeopt = 0 
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
+let g:ycm_mim_num_identifier_candidate_chars = 2
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_strings = 1
+" let g:ycm_key_invoke_completion = '<c-z>'
+set completeopt=menu,menuone
+" noremap <c-z> <NOP>
+let g:ycm_semantic_triggers = {
+    \ 'c, cpp, python, java, go, erlang, perl': ['re!\w{2}'],
+    \ 'cs, lua, javascript': ['re!\w{2}'], 
+    \ }
+" -----------------------------------------------------------------
+
+
+"==========================================
+"   Plugin ctags  
+"==========================================
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" Depends >
+" sudo apt install \
+"    gcc make \
+"    pkg-config autoconf automake \
+"    python3-docutils \
+"    libseccomp-dev \
+"    libjansson-dev \
+"    libyaml-dev \
+"    libxml2-dev
+" -----------------------------------------------------------
+"  install command:
+"       cd ctags
+"       ./autogen.sh
+"       ./configure --prefix=/where/you/want #defaults to /usr/local
+"       make
+"       make install #may require extra privileges depending on where to install
+" -----------------------------------------------------------
+" 手册:
+" 生成 Tags 命令: 
+" ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v 
+"       \ --fields=+liaS
+"       \ --extra=+q
+" -----------------------------------------------------------
+" 参数详情:
+"c       类classes)
+"d       宏定义(macro definitions)
+"e       枚举变量(enumerators)
+"f        函数定义(function definitions)
+"g       枚举类型(enumeration names)
+"l        局部变量(local variables)，默认不提取
+"m       类、结构体、联合体(class, struct, and union members)
+"n       命名空间(namespaces)
+"p       函数原型(function prototypes)，默认不提取
+"s       结构体类型(structure names)
+"t       (typedefs)
+"u       联合体类型(union names)
+"v       变量定义(variable definitions)
+"x       外部变量(external and forward variable declarations)，默认不提取
+"----------------------------------------------------------------------------
+" 快捷键使用:
+" 1. 光标在某个标识符上 通过 Ctrl + ] 可以跳转到定义的位置
+" 2. 光标在局部变量上可以使用 gd 跳转到局部变量定义的位置
+" 3. Ctrl + o 可以返回到原来的位置
+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+set tags=./.tags;,.tags
+
+
+
+"==========================================
+"   Plugin vim-gutentags  
+"==========================================
+" 搜索工程目录的标志
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
+
+let g:gutentags_ctags_tagfile='.tags'
+
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+" 配置ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+" 检测~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+    silent! call mkdir(s:vim_tags, 'p')
+endif
+
 
